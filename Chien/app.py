@@ -28,7 +28,7 @@ def upload():
         #uploaded_file.save(file_path)
         # Xử lý file âm thanh và triết xuất kết quả từ mô hình máy học ở đây
         # Sau đó trả kết quả cho người dùng
-        return "Kết quả: ..."
+        return "result: ..."
     return "Không có file được tải lên."
 
 if __name__ == "__main__":
