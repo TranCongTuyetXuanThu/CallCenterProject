@@ -12,7 +12,7 @@ def home_screen():
     return render_template('home.html')
 @app.route('/SER')
 def predict_screen():
-    return render_template('index.html')
+    return render_template('index1.html')
 
 
 @app.route('/predict', methods=['POST'])

@@ -11,32 +11,32 @@
       
 
     </style>    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 </head>
-<body>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <h1>SPEECH EMOTION RECOGNITION</h1>
-    <div class="wrapper">
-      <div class="content" role="main">
-          <form method="POST" action="/upload" enctype="multipart/form-data">
+<body class="homepage is-preload"> 
+    <div class="page-wrapper">
+      <h1>SPEECH EMOTION RECOGNITION</h1>
+      <!-- Header -->
+      <div id="header" role="main">        
+        <form method="POST" action="/upload" enctype="multipart/form-data">
           <label class="file-input-label" for="audio">Choose audio file :</label>
-          <input type="file" name="file" accept=".wav">
-          <br/><input type="SUBMIT" value="SUBMIT">
+          <input type="file" name="file" accept=".wav"><input type="SUBMIT" value="SUBMIT">
           <div>
             <label for="manual-link">Or enter a link:</label>
             <input type="text" id="manual-link">
             <button onclick="updateLinkFromManualInput()">Update</button>
           </div>
         </form>
-      <h2>EMOTION:</h2>
-      <div id="result">
-        <!-- Kết quả sẽ hiển thị ở đây sau khi xử lý -->
+        <h2>EMOTION:</h2>
+        <div id="result">
+          <!-- Kết quả sẽ hiển thị ở đây sau khi xử lý -->
+        </div>
+        <img src="{{ url_for('static', filename='images/mfcc.png') }}" alt="Biểu đồ MFCC">
+        <div class="conner"></div>
       </div>
-      <img src="{{ url_for('static', filename='images/mfcc.png') }}" alt="Biểu đồ MFCC">
-</body>
-<script src="{{url_for('static', filename = 'styles/js/jquery.min.js')}}"></script>	
-<script src="{{url_for('static', filename = 'styles/js/breakpoints.min.js')}}"></script>
-<script src="{{url_for('static', filename = 'styles/js/main.js')}}"></script>	
+      <script src="{{url_for('static', filename = 'styles/js/jquery.min.js')}}"></script>	
+      <script src="{{url_for('static', filename = 'styles/js/breakpoints.min.js')}}"></script>
+      <script src="{{url_for('static', filename = 'styles/js/main.js')}}"></script>	
+</body>	
 </html>
