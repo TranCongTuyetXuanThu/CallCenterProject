@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang=" en">
+<html>
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--đảm bảo rằng trình duyệt IE sẽ hiển thị trang web theo cách tương thích nhất-->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{{url_for('static', filename = 'styles/css/main.css')}}">
-    <title>Group 1: Call Center</title>
-    <style>
-      /* Our default values set as CSS variables */
-      
-
-    </style>    
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!DOCTYPE html>
+    <html lang=" en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--đảm bảo rằng trình duyệt IE sẽ hiển thị trang web theo cách tương thích nhất-->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{{url_for('static', filename = 'styles/css/main.css')}}">
+        <title>Group 1: Call Center</title>
+        
 </head>
-<body class="homepage is-preload"> 
-    <div class="page-wrapper">
-      <h1>SPEECH EMOTION RECOGNITION</h1>
-      <!-- Header -->
-      <div id="header" role="main">        
-        <form method="POST" action="/upload" enctype="multipart/form-data">
-          <label class="file-input-label" for="audio">Choose audio file :</label>
-          <input type="file" name="file" accept=".wav"><input type="SUBMIT" value="SUBMIT">
-          <div>
-            <label for="manual-link">Or enter a link:</label>
-            <input type="text" id="manual-link">
-            <button onclick="updateLinkFromManualInput()">Update</button>
-          </div>
-        </form>
-        <h2>EMOTION:</h2>
-        <div id="result">
-          <!-- Kết quả sẽ hiển thị ở đây sau khi xử lý -->
-        </div>
-        <img src="{{ url_for('static', filename='images/mfcc.png') }}" alt="Biểu đồ MFCC">
-        <div class="conner"></div>
-      </div>
-      <script src="{{url_for('static', filename = 'styles/js/jquery.min.js')}}"></script>	
-      <script src="{{url_for('static', filename = 'styles/js/breakpoints.min.js')}}"></script>
-      <script src="{{url_for('static', filename = 'styles/js/main.js')}}"></script>	
-</body>	
+<body class="homepage is-preload">
+    <div id="page-wrapper">
+        
+        <!-- Header -->
+            <div id="header" role="main">
+                <!-- Inner -->
+                    <div class="inner">
+                        <h1>SPEECH EMOTION RECOGNITION</h1>
+                        <form method="POST" action="/upload" enctype="multipart/form-data">
+                          <label class="file-input-label" for="audio">Choose audio file:</label>
+                          <input type="file" name="file" accept=".wav">
+                          <input type="submit" value="Submit">
+                        </form>
+                      
+                        <!-- <form method="POST" action="/upload" enctype="multipart/form-data">
+                            <label for="manual-link">Or enter a link:</label>
+                            <input type="text" name="url" id="manual-link">
+                            <input type="submit" value="Submit URL">
+                        </form> -->
+                          <h2>EMOTION:</h2>
+                          <div id="result">
+                            {% if start_model_loading%}
+                            <h2>model_loading...</h2>
+                            {% endif %}
+
+                            {% if emotion %}
+                            <h2>Predicted Emotion: {{ emotion }}</h2>
+                            {% endif %}
+                            {% if audio_html %}
+                                <audio controls>
+                                    <source src="e:\data_DPL\IEMOCAP_full_release\Session1\sentences\wav\Ses01F_impro01\Ses01F_impro01_F000.wav" type="audio/wav">
+                                    Trình duyệt của bạn không hỗ trợ phát audio.
+                                </audio>
+                            {% endif %}
+
+                          </div>
+                    </div>
+                    <div class="container">
+                        <a href="https://github.com/TranCongTuyetXuanThu/DPL-Group1" target="_blank" id="github">
+                            <img src="../static/images/github.png" alt="Link Github" class="github-logo">
+                        </a>
+                    </div>	
+                <div class="conner">
+                    <!-- <a href="https://github.com/TranCongTuyetXuanThu/DPL-Group1" target="_blank" id="github">
+                        <img src="../static/images/github.png" alt="Link Github" class="github-logo">
+                    </a> -->
+                </div> 
+                
+            </div>
+    <!-- Scripts -->
+        <script src="{{url_for('static', filename = 'styles/js/jquery.min.js')}}"></script>	
+        <script src="{{url_for('static', filename = 'styles/js/breakpoints.min.js')}}"></script>
+        <script src="{{url_for('static', filename = 'styles/js/main.js')}}"></script>	
+
+</body>
+</html>
 </html>
