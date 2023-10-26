@@ -1,0 +1,61 @@
+#header {
+    position: relative;
+    background-image: url("../../images/background-1.webp");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #fff;
+    text-align: right;
+    padding: 10em 2em 2em 0;
+    cursor: default;
+  }
+  
+  #header:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url("../../images/background-1.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    filter: blur(4px);
+  }
+  
+  #header .conner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Đặt chiều rộng của hình ảnh trên toàn bề mặt phần header */
+    height: 100%; /* Đặt chiều cao của hình ảnh trên toàn bề mặt phần header */
+    background-image: url("../../images/2021-FPTU-Eng.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  #header .container {
+    position: relative;
+    z-index: 1;
+    width: 100%; /* Đặt chiều rộng của phần container trên toàn bề mặt phần header */
+    height: 100%; /* Đặt chiều cao của phần container trên toàn bề mặt phần header */
+    cursor: pointer; /* Biến đổi con trỏ thành hình bàn tay khi hover */
+  }
+  
+  #github-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Đặt chiều rộng của liên kết trên toàn bề mặt container */
+    height: 100%; /* Đặt chiều cao của liên kết trên toàn bề mặt container */
+  }
+  
+  #github-link img {
+    width: 100px; /* Đặt chiều rộng của hình ảnh */
+  }
+  
