@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Emotion Recognition</title>
+    <link rel="stylesheet" href="../static/styles/css/main.css" />
+   
+</head>
+<body>
+    <div id="root">
+        <div class="flex flex-col h-full overflow-x-hidden">
+            <div class="sticky top-0 z-50 flex items-center justify-center w-full bg-white md:border-b-gray-200 md:border-b-[1px] pt-3 pb-3">
+                <img class="absolute left-0 h-3 mx-6 md:hidden" src="../static/images/hamburger.svg" alt="Mobile Menu">
+                <a class="mt-2 text-xl font-bold leading-tight md:mx-6 lg:text-2xl active" href="/" style="font-weight: 700;" aria-current="page">
+                    <img src="../static/images/2021-FPTU-Eng.png" alt="FPTU logo"
+                    style="height: 49.8px; width: 120px;">
+                </a>
+                <div class="hidden ml-auto md:flex [&amp;>*]:flex [&amp;>*]:items-center h-full">
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base false" href="/">Home</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base underline text-blue-700  active" href="/demo" aria-current="page">Demo</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="/dataset/index.html">Dataset</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://ai.facebook.com/blog/segment-anything-foundation-model-image-segmentation/" target="_blank">Blog</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://arxiv.org/abs/2304.02643" target="_blank">Paper</a>
+                    <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
+                        <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/Github.svg" alt="Github" style="fill: red;"></a>
+                </div>
+            </div>
+            <div class="flex items-stretch justify-center flex-1 overflow-hidden stage">
+          
+                    <div style="text-align: center;" class="w-1/2 p-4">
+                        <h2>Input audio file</h2>
+                        <div style="display: block; margin: 10em 0 10em 0;">
+                            <form method="POST" action="/upload" enctype="multipart/form-data" display ="block" margin="10px, 0, 10px, 0">
+                                <input type="file" name="file" accept=".wav">
+                                <input type="submit" value="Submit">
+                                <h2>EMOTION:</h2>
+                                <div id="result">
+                                  {% if start_model_loading%}
+                                  <h2>model_loading...</h2>
+                                  {% endif %}
+      
+                                  {% if emotion %}
+                                  <h2>Predicted Emotion: {{ emotion }}</h2>
+                                  {% endif %}
+                                  {% if audio_html %}
+                                      <audio controls>
+                                          <source src="e:\data_DPL\IEMOCAP_full_release\Session1\sentences\wav\Ses01F_impro01\Ses01F_impro01_F000.wav" type="audio/wav">
+                                          Trình duyệt của bạn không hỗ trợ phát audio.
+                                      </audio>
+                                  {% endif %}
+                            </form>
+                        </div> 
+                    </div>
+                    <div style="text-align: center;" class="w-1/2 p-4">
+
+                        <h2>Record audio</h2>
+                
+                        </div>
+                    </div>
+                    
+                        <!-- <div class="modal-box align-middle h-min shadow-[0px_0px_20px_10px_#00000024]">
+                            <div class="flex justify-between"><h4 class="text-lg text-center text-bold">Before you begin</h4>
+                                <span>
+                                    <a href="#" class="font-bold"><a class="" href="/">Close</a></a>
+                                </span>
+                            </div>
+                            <ul class="px-6 pt-6 list-disc">
+                                <li class="p-1">This is a <strong>research demo </strong>and may not be used for any commercial purpose</li>
+                                
+                            </ul>
+                            <div class="flex flex-row m-4 md:mt-6 md:mb-6"><input type="checkbox"  class="checkbox mt-1 mr-2"><div><div class="pb-4"><span>I have read and agree to the Segment Anything <a class="underline" href="/terms">Terms and Conditions</a></span></div></div></div>
+                            
+                        </div> -->
+
+                    </div>
+                </div>
+
+            </div>
+        
+        </div>
+
+    </div>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q6T9NGZZ1N"></script>
+    <script async="" src="../static/styles/js/main.js"></script>
+</body>
+
+</html>
