@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speech Emotion Recognition</title>
     <link rel="stylesheet" href="../static/styles/css/main.css" />
-   
+    <link rel="icon" type="image/ico" href="../static/images/logo-2.png">
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://markjivko.com/dist/recorder.js"></script>
 </head>
 <body>
     <div id="root">
@@ -24,19 +26,51 @@
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://arxiv.org/abs/2304.02643" target="_blank">Paper</a>
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
                         <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/Github.svg" alt="Github" style="fill: red;"></a>
+                    <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
+                        <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/logo-2.png" alt="We are Call Center" style="fill: red; width: 50px; height: 50px;"></a>
                 </div>
             </div>
-            <div class="flex items-stretch justify-center flex-1 overflow-hidden stage">
+            <div class="flex items-stretch justify-center flex-1 overflow-hidden stage" style="position: relative; color: white; background-image: url(../static/images/xRYvPq.jpg);">
           
-                    <div style="text-align: center;" class="w-1/2 p-4">
-                        <h2>Input audio file</h2>
+                    <div style="position: relative; text-align: center; padding-top: 30px;" class="w-1/2 p-4">
+                        
+                        <h2 style="font-size: 50px;">Input audio file</h2>
+                        <div class="on_audio_file" style="display: block; margin: 10em 0 10em 0;">
+                            <form method="POST" action="/upload" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
+                                <input type="file" class="choose-file" name="file" accept=".wav">
+                                <button type="submit" class="predict-button">Predict</button>
+
+                                <div id="result">
+                                    {% if start_model_loading %}
+                                    <h2>model_loading...</h2>
+                                    {% endif %}
+                        
+                                    {% if emotion %}
+                                    <h2>Predicted Emotion: {{ emotion }}</h2>
+                                    {% endif %}
+                                    {% if audio_html %}
+                                    <audio controls>
+                                        <source src="../uploads/Ses02F_impro01.wav" type="audio/wav">
+                                        Trình duyệt của bạn không hỗ trợ phát audio.
+                                    </audio>
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
                         
                     </div>
-                    <div style="text-align: center;" class="w-1/2 p-4">
+                    <div style="position: relative; text-align: center; padding-top: 30px;" class="w-1/2 p-4">
 
-                        <h2>Record audio</h2>
-                
+                        <h2 style="font-size: 50px;">Record audio</h2>
+                        <div class="recorder_button">
+                            <div class="holder">
+                                <div data-role="controls">
+                                    <button>Record</button>
+                                </div>
+                                <div data-role="recordings"></div>
+                            </div>
                         </div>
+                        
                     </div>
                     
                         <!-- <div class="modal-box align-middle h-min shadow-[0px_0px_20px_10px_#00000024]">
@@ -63,6 +97,7 @@
     </div>
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q6T9NGZZ1N"></script>
     <script async="" src="../static/styles/js/main.js"></script>
+
 </body>
 
 </html>
