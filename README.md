@@ -5,7 +5,7 @@ This project focuses on analyzing the emotions embedded in audio and providing u
 
 ## [Dataset]()
 ### [IEMOCAP](https://www.kaggle.com/datasets/jamaliasultanajisha/iemocap-full)
-The project utilizes the IEMOCAP dataset for training and evaluating the speech emotion recognition model. This dataset provides a diverse collection of audio samples with labeled emotional content, allowing for comprehensive training and valdating of the model. [See more](Xuyen/Data_Report.pdf)
+The project utilizes the IEMOCAP dataset for training and evaluating the speech emotion recognition model. This dataset provides a diverse collection of audio samples with labeled emotional content, allowing for comprehensive training and valdating of the model. [See more](Data/Data_Report.pdf)
 
 To facilitate the model training process, preprocessing the data and identifying factors that impact the model's accuracy is crucial.The data
 preprocessing process in any project typically includes the following steps:
@@ -13,7 +13,7 @@ preprocessing process in any project typically includes the following steps:
 2. Extract MFCCs
 3. Normalize dataset (Data is bias toward "negative" label)
 4. Train_valid split (test on real data)
-![Processed Data Distribution](Xuyen/Labels_distribution.png)
+![Processed Data Distribution](Data/Labels_distribution.png)
 
 In parallel with the data processing, we conducted Exploratory Data Analysis (EDA) in both the Python programming language and the EDA software, as required by the course curriculum. See more [EDA.py](), [EDA.R]()
 
@@ -37,4 +37,5 @@ Real data source:
 4. Nguyễn Việt Anh
 5. Trần Thống Nhất
 6. Nguyễn Ngọc Chiến
+## Reference
 
