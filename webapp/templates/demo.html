@@ -23,7 +23,7 @@
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base underline text-blue-700  active" href="/demo" aria-current="page">Demo</a>
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="/dataset/index.html">Dataset</a>
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://ai.facebook.com/blog/segment-anything-foundation-model-image-segmentation/" target="_blank">Blog</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://arxiv.org/abs/2304.02643" target="_blank">Paper</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Paper</a>
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
                         <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/Github.svg" alt="Github" style="fill: red;"></a>
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
@@ -50,9 +50,9 @@
                                     {% endif %}
                                     {% if audio_html %}
                                     <audio controls>
-                                        <source src="../uploads/Ses02F_impro01.wav" type="audio/wav">
-                                        Trình duyệt của bạn không hỗ trợ phát audio.
-                                    </audio>
+                                        <source src="../uploads/Ses01F_impro01_F000.wav" type="audio/wav">
+                                        Trình duyệt của bạn không hỗ trợ phát audio. </audio>
+                                       
                                     {% endif %}
                                 </div>
                             </form>
@@ -65,28 +65,21 @@
                         <div class="recorder_button">
                             <div class="holder">
                                 <div data-role="controls">
-                                    <button>Record</button>
+                                    <button style="z-index: 9999;" id="recordButton">Record</button>
                                 </div>
                                 <div data-role="recordings"></div>
                             </div>
                         </div>
-                        
+                        <form method="POST" action="/predict" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
+                            <div id="result" >
+                                {% if emotions %}
+                                <h2>Predicted Emotion: {{ emotions }}</h2>
+                                {% endif %}
+                            </div>
+                        </form>
                     </div>
                     
-                        <!-- <div class="modal-box align-middle h-min shadow-[0px_0px_20px_10px_#00000024]">
-                            <div class="flex justify-between"><h4 class="text-lg text-center text-bold">Before you begin</h4>
-                                <span>
-                                    <a href="#" class="font-bold"><a class="" href="/">Close</a></a>
-                                </span>
-                            </div>
-                            <ul class="px-6 pt-6 list-disc">
-                                <li class="p-1">This is a <strong>research demo </strong>and may not be used for any commercial purpose</li>
-                                
-                            </ul>
-                            <div class="flex flex-row m-4 md:mt-6 md:mb-6"><input type="checkbox"  class="checkbox mt-1 mr-2"><div><div class="pb-4"><span>I have read and agree to the Segment Anything <a class="underline" href="/terms">Terms and Conditions</a></span></div></div></div>
-                            
-                        </div> -->
-
+                
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session, flash
+from flask import Flask, redirect, url_for, render_template, request, session, flash, send_from_directory, jsonify
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from os import path
@@ -13,6 +13,7 @@ from torch import nn
 import torch, torchaudio, statistics
 from pydub import AudioSegment
 from pydub.silence import detect_nonsilent
+import os
 
 # Model flow
 class define_model(nn.Module):
@@ -193,7 +194,10 @@ class preprocess_real_data():
       return file, tensor
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
 
 @app.route('/')
@@ -277,10 +281,25 @@ def upload_audio():
     #     emotion = predict(model, wav_filepath)
     #     return render_template('index.html', emotion=emotion)
     else:
-        return render_template('index.html', emotion="Invalid input. Please provide a valid .wav file or URL.")
+        return render_template('demo.html', emotion="Invalid input. Please provide a valid .wav file or URL.")
 
+@app.route('/predict', methods=['POST'])
+def predict_audio():
+    audio_data = request.files['file']
+    # Save the received audio data as a WAV file
+    audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'recorded_audio.wav')
+    audio_data.save(audio_path)
 
-
+    # Load your model and perform the prediction
+    model = load_model('model95.pt')
+    preprocess = preprocess_real_data('ok')
+    final_output, label = predict_1_sample(audio_path, model, preprocess)
+    if label=="positive":
+        label="Good job!"
+    elif label=="negative":
+        label= "Alert! Your customer is not satified"
+    print(label)
+    return render_template('demo.html', emotions = label)
 
 if __name__ == "__main__":
     app.run(debug = True)

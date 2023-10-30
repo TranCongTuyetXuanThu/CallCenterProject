@@ -40,6 +40,22 @@ jQuery(document).ready(function () {
                         var url = (window.URL || window.webkitURL)
                                 .createObjectURL(blob);
 
+                                var formData = new FormData();
+                                formData.append('file', blob, 'recorded_audio.wav');
+                        
+                                // Send the recorded audio to the server for prediction
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/predict', // Update the endpoint to match your Flask route
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (response) {
+                                        // Handle the prediction response here (e.g., update the UI)
+                                        console.log(response);
+                                    }
+                                });
+
                         // Prepare the playback
                         var audioObject = $('<audio controls></audio>')
                                 .attr('src', url);
@@ -52,7 +68,7 @@ jQuery(document).ready(function () {
                         // Wrap everything in a row
                         var holderObject = $('<div class="row"></div>')
                                 .append(audioObject)
-                                .append(downloadObject);
+                                // .append(downloadObject);
 
                         // Append to the list
                         listObject.append(holderObject);
@@ -81,6 +97,7 @@ jQuery(document).ready(function () {
             $(this).attr('data-recording', '');
             myRecorder.stop(listObject);
         }
+        
     });
 });
 
@@ -88,3 +105,48 @@ jQuery(document).ready(function () {
     document.getElementById('selectAudioButton').addEventListener('click', function () {
         document.getElementById('audioFile').click();
     });
+
+
+// document.getElementById('recordButton').addEventListener('click', function () {
+//     // Initialize the recorder
+//     myRecorder.init();
+
+//     // Get the button state
+//     var buttonState = !!$(this).attr('data-recording');
+
+//     // Toggle
+//     if (!buttonState) {
+//         $(this).attr('data-recording', 'true');
+//         myRecorder.start();
+//     } else {
+//         $(this).attr('data-recording', '');
+//         myRecorder.stop(listObject, function () {
+//             // After stopping recording, send the recorded data for prediction
+//             sendAudioForPrediction(listObject);
+//         });
+//     }
+// });
+
+// function sendAudioForPrediction(listObject) {
+//     // Convert the recorded audio data to a WAV file (you may need to adjust this part)
+//     var audioData = myRecorder.objects.recorder.exportWAV(function (blob) {
+//         var url = (window.URL || window.webkitURL).createObjectURL(blob);
+
+//         // Create a FormData object to send the audio file to the server
+//         var formData = new FormData();
+//         formData.append('file', blob, 'recorded_audio.wav');
+
+//         // Send the recorded audio to the server for prediction
+//         $.ajax({
+//             type: 'POST',
+//             url: '/predict', // Update the endpoint to match your Flask route
+//             data: formData,
+//             processData: false,
+//             contentType: false,
+//             success: function (response) {
+//                 // Handle the prediction response here (e.g., update the UI)
+//                 console.log(response);
+//             }
+//         });
+//     });
+// }
