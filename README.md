@@ -16,7 +16,7 @@ preprocessing process in any project typically includes the following steps:
    
 ![Processed Data Distribution](Data/Label_distribution.png)
 
-In parallel with the data processing, we conducted Exploratory Data Analysis (EDA) in both the Python programming language and the EDA software, as required by the course curriculum. See more [EDA.py](), [EDA.R]()
+In parallel with the data processing, we conducted Exploratory Data Analysis (EDA) in both the Python programming language and the EDA software, as required by the course curriculum. See more [EDA.py](), [EDA.R](Data/EDA.R)
 
 ### Real data
 With real-world data, we recorded and manually labeled approximately 306 samples in English and 306 samples in Vietnamese to test the model's objectivity.
