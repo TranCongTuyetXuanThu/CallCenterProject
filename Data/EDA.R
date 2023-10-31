@@ -13,7 +13,6 @@ library(plotrix)
 getwd()
 setwd("/Users/baoxuyennguyenle/Desktop/SER")
 
-#1. Quick look
 # Read file csv
 data <- read.csv("processed_label_data.csv")
 
@@ -113,20 +112,6 @@ for (i in 1:length(sounds)) {
 }
 
 # mfccs
-path <- '/Users/baoxuyennguyenle/Desktop/SER/IEMOCAP_full_release/wav_mfcc/'
-mfcc_files <- c(data$ID[1],data$ID[9],data$ID[96])
-full_paths <- paste0(path, file, ".pt")
-labels = c('negative', "neutral", "positive")
-par(mfrow=c(length(sounds), 1))
-for (file in mfcc_files) {
-  py <- import("torch")
-  checkpoint <- py$load(file)
-  mfcc <- checkpoint$mfcc
-  plot(mfcc, main=paste(labels[i]), xlab="Frame", ylab="Frequence")
-}
-
-
-
 path <- '/Users/baoxuyennguyenle/Desktop/SER/IEMOCAP_full_release/wav_mfcc/'
 mfcc_files <- c(data$ID[1], data$ID[9], data$ID[96])
 full_paths <- paste0(path, mfcc_files, ".pt")
