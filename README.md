@@ -13,7 +13,7 @@ preprocessing process in any project typically includes the following steps:
 2. Extract MFCCs
 3. Normalize dataset (Data is bias toward "negative" label)
 4. Train_valid split (test on real data)
-![Processed Data Distribution](Data/Labels_distribution.png)
+![Processed Data Distribution](Data/Label_distribution.png)
 
 In parallel with the data processing, we conducted Exploratory Data Analysis (EDA) in both the Python programming language and the EDA software, as required by the course curriculum. See more [EDA.py](), [EDA.R]()
 
