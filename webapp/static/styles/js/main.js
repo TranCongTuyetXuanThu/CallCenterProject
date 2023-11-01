@@ -52,7 +52,8 @@ jQuery(document).ready(function () {
                                     contentType: false,
                                     success: function (response) {
                                         // Handle the prediction response here (e.g., update the UI)
-                                        console.log(response);
+                                        document.write(response);
+                                        // console.log(response);
                                     }
                                 });
 
