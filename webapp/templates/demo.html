@@ -39,21 +39,15 @@
                             <form method="POST" action="/upload" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
                                 <input type="file" class="choose-file" name="file" accept=".wav">
                                 <button type="submit" class="predict-button">Predict</button>
-
                                 <div id="result">
                                     {% if start_model_loading %}
                                     <h2>model_loading...</h2>
                                     {% endif %}
-                        
+                                    
                                     {% if emotion %}
                                     <h2>Predicted Emotion: {{ emotion }}</h2>
                                     {% endif %}
-                                    {% if audio_html %}
-                                    <audio controls>
-                                        <source src="../uploads/Ses01F_impro01_F000.wav" type="audio/wav">
-                                        Trình duyệt của bạn không hỗ trợ phát audio. </audio>
-                                       
-                                    {% endif %}
+                                   
                                 </div>
                             </form>
                         </div>
@@ -71,7 +65,7 @@
                             </div>
                         </div>
                         <form method="POST" action="/predict" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
-                            <div id="result" >
+                            <div style="position: relative; top: 300px;" id="result" >
                                 {% if emotions %}
                                 <h2>Predicted Emotion: {{ emotions }}</h2>
                                 {% endif %}
