@@ -30,6 +30,7 @@ Real data source:
 ## [Usage]()
 
 ## [Web]()
+![Processed Data Distribution](Web/WEB.png)
 
 ## Contributors
 1. Hoàng Ngọc Xuân Nguyên
