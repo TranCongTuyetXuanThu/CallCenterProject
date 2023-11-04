@@ -21,8 +21,8 @@
                 <div class="hidden ml-auto md:flex [&amp;>*]:flex [&amp;>*]:items-center h-full">
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base false" href="/">Home</a>
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base underline text-blue-700  active" href="/demo" aria-current="page">Demo</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="/dataset/index.html">Dataset</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://ai.facebook.com/blog/segment-anything-foundation-model-image-segmentation/" target="_blank">Blog</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://www.kaggle.com/datasets/jamaliasultanajisha/iemocap-full">Dataset</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Blog</a>
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Paper</a>
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
                         <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/Github.svg" alt="Github" style="fill: red;"></a>
@@ -31,11 +31,9 @@
                 </div>
             </div>
             <div class="flex items-stretch justify-center flex-1 overflow-hidden stage" style="position: relative; color: white; background-image: url(../static/images/xRYvPq.jpg);">
-          
                     <div style="position: relative; text-align: center; padding-top: 30px;" class="w-1/2 p-4">
-                        
                         <h2 style="font-size: 50px;">Input audio file</h2>
-                        <div class="on_audio_file" style="display: block; margin: 10em 0 10em 0;">
+                        <div class="on_audio_file" style="display: block; margin: 10em 0 10em 0; position: relative; top:-100px">
                             <form method="POST" action="/upload" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
                                 <input type="file" class="choose-file" name="file" accept=".wav">
                                 <button type="submit" class="predict-button">Predict</button>
@@ -47,16 +45,20 @@
                                     {% if emotion %}
                                     <h2>Predicted Emotion: {{ emotion }}</h2>
                                     {% endif %}
-                                   
+
+                                    {% if audio %}
+                                    <audio style="position: relative; left: 200px" controls>
+                                        <source src="{{ url_for('static', filename='uploads/'+file) }}">
+                                        Your browser does not support the audio
+                                    </audio> 
+                                    {% endif %}
                                 </div>
                             </form>
                         </div>
-                        
                     </div>
                     <div style="position: relative; text-align: center; padding-top: 30px;" class="w-1/2 p-4">
-
                         <h2 style="font-size: 50px;">Record audio</h2>
-                        <div class="recorder_button">
+                        <div class="recorder_button" >
                             <div class="holder">
                                 <div data-role="controls">
                                     <button style="z-index: 9999;" id="recordButton">Record</button>
@@ -65,20 +67,22 @@
                             </div>
                         </div>
                         <form method="POST" action="/predict" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
-                            <div style="position: relative; top: 300px;" id="result" >
+                            <div style="position: relative; top: 200px;" id="result" >
                                 {% if emotions %}
                                 <h2>Predicted Emotion: {{ emotions }}</h2>
+                                {% endif %}
+                                {% if audio2 %}
+                                <audio style="position: relative; top: 20px; left: 200px" controls>
+                                    <source src="{{ url_for('static', filename='uploads/'+file) }}">
+                                    Your browser does not support the audio
+                                </audio> 
                                 {% endif %}
                             </div>
                         </form>
                     </div>
-                    
-                
                     </div>
                 </div>
-
             </div>
-        
         </div>
 
     </div>

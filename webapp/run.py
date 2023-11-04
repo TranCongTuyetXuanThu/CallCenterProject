@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session, flash, send_from_directory, jsonify
+from flask import Flask, redirect, url_for, render_template, request, session, flash, send_from_directory, jsonify, Response
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from os import path
@@ -194,7 +194,7 @@ class preprocess_real_data():
       return file, tensor
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -206,6 +206,12 @@ def home_screen():
 @app.route('/demo')
 def predict_screen():
     return render_template('demo.html')
+
+@app.route('/test', methods=['POST','GET'])
+def test_screen():
+    audio_file = "../uploads/5.wav"
+    
+    return render_template('test.html', audio_url = audio_file)
 
 # def is_valid_url(url):
 #     try:
@@ -249,6 +255,7 @@ def predict_1_sample(file_sample, model, preprocesser):
     label = emotion_dict[final_output]
     return final_output, label
 
+
 @app.route('/upload', methods=['POST'])
 def upload_audio():
     if 'file' not in request.files:
@@ -259,19 +266,19 @@ def upload_audio():
     if 'file' in request.files:
         file = request.files['file']
         if file.filename != '':
-            wav_filepath = 'uploads/' + file.filename
+            wav_filepath = 'static/uploads/' + file.filename
             file.save(wav_filepath)
             model = load_model('model95.pt')
             preprocess = preprocess_real_data('ok')
             final_output, label = predict_1_sample(wav_filepath, model, preprocess)
-            # Đoạn mã HTML để phát file âm thanh
-            audio_html = f'<audio controls><source src="../{wav_filepath}" type="audio/wav">Trình duyệt không hỗ trợ phát audio.</audio>'
             # Trả về template đã được cập nhật
             if label=="positive":
-                label="Good job!"
+                label="(Positive) Good job!"
             elif label=="negative":
-                label= "Alert! Your customer is not satified"
-            return render_template('demo.html', emotion=label, audio_html=audio_html)
+                label= "(Negative) Alert! Your customer is not satified"
+            elif label=="neutral":
+                label="Neutral"
+            return render_template('demo.html', emotion=label, audio = True, file=file.filename)
     # url = request.values['url']
     # if is_valid_url(url) and url.endswith('.wav'):
     #     filename = url.split("/")[-1]
@@ -282,6 +289,7 @@ def upload_audio():
     #     return render_template('index.html', emotion=emotion)
     else:
         return render_template('demo.html', emotion="Invalid input. Please provide a valid .wav file or URL.")
+
 
 @app.route('/predict', methods=['POST'])
 def predict_audio():
@@ -295,11 +303,14 @@ def predict_audio():
     preprocess = preprocess_real_data('ok')
     final_output, label = predict_1_sample(audio_path, model, preprocess)
     if label=="positive":
-        label="Good job!"
+        label="(Positive) Good job!"
     elif label=="negative":
-        label= "Alert! Your customer is not satified"
-    print(label)
-    return render_template('demo.html', emotions = label)
+        label= "(Negative) Alert! Your customer is not satified"
+    elif label=="neutral":
+        label="Neutral" 
+    return render_template('demo.html', emotions = label, audio2 = True, file = 'recorded_audio.wav')
 
 if __name__ == "__main__":
     app.run(debug = True)
+    audio = False
+    audio2 = False

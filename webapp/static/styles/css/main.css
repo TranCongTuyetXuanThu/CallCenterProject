@@ -11117,7 +11117,7 @@ them to a <div> instead of a <progress> element  */
   height: 100%;
   width: 100%;
   margin: 0;
-  top:-70px;
+  top:-125px;
   right: 10px;
 }
 /* .holder {
