@@ -14,6 +14,8 @@ import torch, torchaudio, statistics
 from pydub import AudioSegment
 from pydub.silence import detect_nonsilent
 import os
+import datetime
+from werkzeug.utils import secure_filename
 
 # Model flow
 class define_model(nn.Module):
@@ -272,6 +274,8 @@ def upload_audio():
             preprocess = preprocess_real_data('ok')
             final_output, label = predict_1_sample(wav_filepath, model, preprocess)
             # Trả về template đã được cập nhật
+            wav_filepath = 'static/save/'+ label +'/'+ file.filename
+            file.save(wav_filepath)
             if label=="positive":
                 label="(Positive) Good job!"
             elif label=="negative":
@@ -287,6 +291,7 @@ def upload_audio():
     #     model = load_model()
     #     emotion = predict(model, wav_filepath)
     #     return render_template('index.html', emotion=emotion)
+        
     else:
         return render_template('demo.html', emotion="Invalid input. Please provide a valid .wav file or URL.")
 
@@ -297,11 +302,16 @@ def predict_audio():
     # Save the received audio data as a WAV file
     audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'recorded_audio.wav')
     audio_data.save(audio_path)
-
+    
     # Load your model and perform the prediction
     model = load_model('model95.pt')
     preprocess = preprocess_real_data('ok')
     final_output, label = predict_1_sample(audio_path, model, preprocess)
+    x = datetime.datetime.now()
+    new_filename = "recorded_audio_" + x.strftime("%Y%m%d%H%M%S") + ".wav"
+    new_filename = secure_filename(new_filename)
+    wav_filepath = os.path.join('static', 'save', label, new_filename)
+    audio_data.save(wav_filepath)
     if label=="positive":
         label="(Positive) Good job!"
     elif label=="negative":
