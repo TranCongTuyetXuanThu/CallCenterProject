@@ -26,6 +26,9 @@ Data source: https://www.kaggle.com/datasets/jamaliasultanajisha/iemocap-full
 Real data source: 
 ## [Model](Model)
 Our model employs two CNN networks and one transformer encoder model running concurrently.
+
+![Model illustration](Model/model.pdf)
+
 ## [Performance Evaluation]()
 
 ## [Web](Web)
