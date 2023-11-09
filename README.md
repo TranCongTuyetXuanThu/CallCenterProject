@@ -1,4 +1,4 @@
-# Speech Emotion Recognition using CNNs and transformers
+# SER using CNNs and transformers
 ## Introduction
 
 This project focuses on analyzing the emotions embedded in audio and providing users with alerts regarding the detected emotions. The main objective is to apply the model to analyze the emotions conveyed in the conversations of customer service representatives, enabling the evaluation of customer emotions based on their speech patterns. The insights gained from this analysis can be utilized to enhance the customer care system.
