@@ -27,7 +27,7 @@ Real data source:
 ## [Model](Model)
 Our model employs two CNN networks and one transformer encoder model running concurrently.
 
-![Model illustration](Model/model.pdf)
+![Model illustration](Model/Model.png)
 
 ## [Performance Evaluation]()
 
