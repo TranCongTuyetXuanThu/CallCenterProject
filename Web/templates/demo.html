@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Emotion Recognition</title>
+    <link rel="stylesheet" href="../static/styles/css/main.css" />
+    <link rel="icon" type="image/ico" href="../static/images/logo-2.png">
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://markjivko.com/dist/recorder.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div class="flex flex-col h-full overflow-x-hidden">
+            <div class="sticky top-0 z-50 flex items-center justify-center w-full bg-white md:border-b-gray-200 md:border-b-[1px] pt-3 pb-3">
+                <img class="absolute left-0 h-3 mx-6 md:hidden" src="../static/images/hamburger.svg" alt="Mobile Menu">
+                <a class="mt-2 text-xl font-bold leading-tight md:mx-6 lg:text-2xl active" href="/" style="font-weight: 700;" aria-current="page">
+                    <img src="../static/images/2021-FPTU-Eng.png" alt="FPTU logo"
+                    style="height: 49.8px; width: 120px;">
+                </a>
+                <div class="hidden ml-auto md:flex [&amp;>*]:flex [&amp;>*]:items-center h-full">
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base false" href="/">Home</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base underline text-blue-700  active" href="/demo" aria-current="page">Demo</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject/blob/main/Data/Label_distribution.png">Dataset</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Blog</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Paper</a>
+                    <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
+                        <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/Github.svg" alt="Github" style="fill: red;"></a>
+                    <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
+                        <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/logo-2.png" alt="We are Call Center" style="fill: red; width: 50px; height: 50px;"></a>
+                </div>
+            </div>
+            <div class="flex items-stretch justify-center flex-1 overflow-hidden stage" style="position: relative; color: white; background-image: url(../static/images/xRYvPq.jpg);">
+                    <div style="position: relative; text-align: center; padding-top: 30px;" class="w-1/2 p-4">
+                        <h2 style="font-size: 50px;">Input audio file</h2>
+                        <div class="on_audio_file" style="display: block; margin: 10em 0 10em 0; position: relative; top:-100px">
+                            <form method="POST" action="/upload" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
+                                <input type="file" class="choose-file" name="file" accept=".wav">
+                                <button type="submit" class="predict-button">Predict</button>
+                                <div id="result">
+                                    {% if start_model_loading %}
+                                    <h2>model_loading...</h2>
+                                    {% endif %}
+                                    
+                                    {% if emotion %}
+                                    <h2>Predicted Emotion: {{ emotion }}</h2>
+                                    {% endif %}
+
+                                    {% if audio %}
+                                    <audio style="position: relative; left: 200px" controls>
+                                        <source src="{{ url_for('static', filename='uploads/'+file) }}">
+                                        Your browser does not support the audio
+                                    </audio> 
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="position: relative; text-align: center; padding-top: 30px;" class="w-1/2 p-4">
+                        <h2 style="font-size: 50px;">Record audio</h2>
+                        <div class="recorder_button" >
+                            <div class="holder">
+                                <div data-role="controls">
+                                    <button style="z-index: 9999;" id="recordButton">Record</button>
+                                </div>
+                                <div data-role="recordings"></div>
+                            </div>
+                        </div>
+                        <form method="POST" action="/predict" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
+                            <div style="position: relative; top: 200px;" id="result" >
+                                {% if emotions %}
+                                <h2>Predicted Emotion: {{ emotions }}</h2>
+                                {% endif %}
+                                {% if audio2 %}
+                                <audio style="position: relative; top: 20px; left: 200px" controls>
+                                    <source src="{{ url_for('static', filename='uploads/'+file) }}">
+                                    Your browser does not support the audio
+                                </audio> 
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q6T9NGZZ1N"></script>
+    <script async="" src="../static/styles/js/main.js"></script>
+
+</body>
+
+</html>
