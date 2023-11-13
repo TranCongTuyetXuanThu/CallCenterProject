@@ -144,8 +144,8 @@ class preprocess_real_data():
         # # Export the audio as a WAV file
         # file = file[:-4]+'.wav'
         # audio.write_audiofile(file)
-        output_file = file.split('.')[0] + ".wav"
-        subprocess.call(['ffmpeg', '-i', file, output_file])
+        output_file = os.path.join(os.path.dirname(file), os.path.splitext(os.path.basename(file))[0] + ".wav")
+        subprocess.call(['ffmpeg', '-i', file, output_file], shell=True)
         return output_file
     def remove_noise(self, file):
         # Detect non-silent parts of the audio

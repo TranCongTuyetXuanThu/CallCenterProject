@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Emotion Recognition</title>
+</head>
+
+<body>
+    <div id="label">Play to show</div>
+
+    <audio id="audi" controls>
+        <source src="./Anh_07.wav" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let currentTime = 0;
+
+        const audio = document.getElementById('audi');
+        const label = document.getElementById('label');
+
+        const data = ['00:00-00:01_neutral', '00:00-00:02_positive', '00:02-00:04_negative', '00:04-00:05_neutral'];
+
+        const labels = data.map(item => {
+            const parts = item.split('_');
+            const times = parts[0].split('-');
+
+            const minStart = parseInt(times[0].split(':')[0]);
+            const secStart = parseInt(times[0].split(':')[1]);
+
+            const minEnd = parseInt(times[1].split(':')[0]);
+            const secEnd = parseInt(times[1].split(':')[1]);
+
+            const startTotalSec = minStart * 60 + secStart;
+            const endTotalSec = minEnd * 60 + secEnd;
+
+            return {
+                start: startTotalSec,
+                end: endTotalSec,
+                label: parts[1]
+            };
+        });
+
+        console.log(labels);
+
+        function checkTime() {
+            getCurrentTime();
+
+            const currentLabel = labels.find(label => {
+                return currentTime >= label.start && currentTime < label.end;
+            });
+
+            if (currentLabel) {
+                label.textContent = currentLabel.label;
+            }
+        }
+
+        function getCurrentTime() {
+            currentTime = audio.currentTime;
+        }
+
+        audio.addEventListener('playing', checkTime);
+        audio.addEventListener('pause', getCurrentTime);
+        audio.addEventListener('play', getCurrentTime);
+        audio.addEventListener('seeked', getCurrentTime);
+        audio.addEventListener('timeupdate', checkTime);
+    </script>
+</body>
+
+</html>

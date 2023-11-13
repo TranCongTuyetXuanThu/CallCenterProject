@@ -35,13 +35,12 @@
                         <h2 style="font-size: 50px;">Input audio file</h2>
                         <div class="on_audio_file" style="display: block; margin: 10em 0 10em 0; position: relative; top:-100px">
                             <form method="POST" action="/upload" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
-                                <input type="file" class="choose-file" name="file" accept=".wav">
+                                <input type="file" class="choose-file" name="file" accept="*/*">
                                 <button type="submit" class="predict-button">Predict</button>
                                 <div id="result">
                                     {% if start_model_loading %}
                                     <h2>model_loading...</h2>
                                     {% endif %}
-                                    
                                     {% if emotion %}
                                     <h2>Predicted Emotion: {{ emotion }}</h2>
                                     {% endif %}
@@ -52,6 +51,7 @@
                                         Your browser does not support the audio
                                     </audio> 
                                     {% endif %}
+                                    
                                 </div>
                             </form>
                         </div>
