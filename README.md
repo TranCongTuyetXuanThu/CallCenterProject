@@ -9,10 +9,6 @@ The project utilizes the IEMOCAP dataset for training and evaluating the speech 
 
 To facilitate the model training process, preprocessing the data and identifying factors that impact the model's accuracy is crucial.The data
 preprocessing process in any project typically includes the following steps:
-1. Aggregate all the necessary features into one CSV file (name, label(one-hot), dimension, path)
-2. Extract MFCCs
-3. Normalize dataset (Data is bias toward "neutral" label)
-4. Train_valid split (test on real data)
    
 ![Processed Data Distribution](Data/Experiment.png)
 ![Processed Data Distribution](Data/Experiment_2.png)
