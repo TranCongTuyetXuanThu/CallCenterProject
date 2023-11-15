@@ -14,7 +14,9 @@ preprocessing process in any project typically includes the following steps:
 3. Normalize dataset (Data is bias toward "neutral" label)
 4. Train_valid split (test on real data)
    
+![Processed Data Distribution](Data/Experiment.png)
 ![Processed Data Distribution](Data/Experiment_2.png)
+![Processed Data Distribution](Data/Experiment_3.png)
 
 In parallel with the data processing, we conducted Exploratory Data Analysis (EDA) in both the Python programming language and the EDA software, as required by the course curriculum. See more [EDA.ipynb](Data/EDA.ipynb), [EDA.R](Data/EDA.R)
 
@@ -27,7 +29,7 @@ Real data source:
 ## [Model](Model)
 Our model employs two CNN networks and one transformer encoder model running concurrently.
 
-![Model illustration](Model/model.pdf)
+![Model illustration](Model/Model.png)
 
 ## [Performance Evaluation]()
 
