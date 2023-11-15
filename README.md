@@ -22,7 +22,7 @@ With real-world data, we recorded and manually labeled approximately 306 samples
 
 Data source: https://www.kaggle.com/datasets/jamaliasultanajisha/iemocap-full
 
-Real data source: 
+Real data source: https://www.kaggle.com/datasets/xunthutrncngtuyt/real-data?fbclid=IwAR3mNQJkp4hKBV_KTlNTgxkaQOLrqjYDacgS7sFoZ0QXV9Ax8Oabifz1jFk
 ## [Model](Model)
 Our model employs two CNN networks and one transformer encoder model running concurrently.
 
