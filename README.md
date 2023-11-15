@@ -12,6 +12,7 @@ preprocessing process in any project typically includes the following steps:
    
 ![Processed Data Distribution](Data/Experiment.png)
 ![Processed Data Distribution](Data/Experiment_2.png)
+
 ![Processed Data Distribution](Data/Experiment_3.png)
 
 In parallel with the data processing, we conducted Exploratory Data Analysis (EDA) in both the Python programming language and the EDA software, as required by the course curriculum. See more [EDA.ipynb](Data/EDA.ipynb), [EDA.R](Data/EDA.R)
