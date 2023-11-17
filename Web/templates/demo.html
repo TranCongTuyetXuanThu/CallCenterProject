@@ -21,9 +21,8 @@
                 <div class="hidden ml-auto md:flex [&amp;>*]:flex [&amp;>*]:items-center h-full">
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base false" href="/">Home</a>
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base underline text-blue-700  active" href="/demo" aria-current="page">Demo</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject/blob/main/Data/Label_distribution.png">Dataset</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Blog</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Paper</a>
+                    <!-- <a class="hover:underline underline-offset-4 mr-10 font-medium text-base  " href="/realtime">Realtime</a> -->
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="/logout" target="_blank">Logout</a>
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
                         <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/Github.svg" alt="Github" style="fill: red;"></a>
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
@@ -41,17 +40,39 @@
                                     {% if start_model_loading %}
                                     <h2>model_loading...</h2>
                                     {% endif %}
+                                    {% if emotion and audio and history %}
+                                        <div id="label">Play to show</div>
+                                    <!-- <h2>Predicted Emotion: {{ emotion }}</h2> -->
+                                        <audio id="audi" style="position: relative; left: 200px" controls>
+                                            <source src="{{ url_for('static', filename='uploads/'+file) }}">
+                                            Your browser does not support the audio
+                                        </audio>
+                                        <!-- <img src="{{ url_for('static', filename='tmp/'+waveform_image_path) }}" alt="Waveform Image"> -->
+                                        <div id="result">
+                                            <a style="position: absolute; top: -80px; right: 280px;" href="/result" id="printEmotion">History</a>
+                                        </div>  
+                                        <script>
+                                            document.getElementById('printEmotion').addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                const label = {{emotion | tojson | safe }}; 
+                                                // Lấy danh sách cảm xúc từ trang demo.html
+                                                const emotions = {{ history | tojson | safe }};  // Biến JSON từ Flask
+                                                const audio2Element = document.getElementById('audi');
+                                                const audio2Source = audio2Element.src;
+                                                const waveform={{waveform_image_path| tojson | safe}}
+                                                
+                                                // Lưu danh sách cảm xúc và địa chỉ âm thanh vào session storage
+                                                sessionStorage.setItem('emotions', JSON.stringify(emotions));
+                                                sessionStorage.setItem('audioPath', '{{ url_for('static', filename='uploads/' + file) }}');
+                                                sessionStorage.setItem("label", JSON.stringify(label));
+                                                sessionStorage.setItem("waveform", '{{ url_for('static', filename='tmp/'+waveform_image_path) }}');
+                                                window.location.href = '/result';  // Chuyển đến trang result.html
+                                                
+                                            });
+                                        </script>
+                                        
+                                    {% endif %}
                                     
-                                    {% if emotion %}
-                                    <h2>Predicted Emotion: {{ emotion }}</h2>
-                                    {% endif %}
-
-                                    {% if audio %}
-                                    <audio style="position: relative; left: 200px" controls>
-                                        <source src="{{ url_for('static', filename='uploads/'+file) }}">
-                                        Your browser does not support the audio
-                                    </audio> 
-                                    {% endif %}
                                 </div>
                             </form>
                         </div>
@@ -68,14 +89,35 @@
                         </div>
                         <form method="POST" action="/predict" enctype="multipart/form-data" display="block" margin="10px, 0, 10px, 0">
                             <div style="position: relative; top: 200px;" id="result" >
-                                {% if emotions %}
-                                <h2>Predicted Emotion: {{ emotions }}</h2>
-                                {% endif %}
-                                {% if audio2 %}
-                                <audio style="position: relative; top: 20px; left: 200px" controls>
+                                {% if emotions  and audio2 and histories%}
+                                <div id="labels">Play to show</div>
+                                <!-- {% endif %}
+                                {% if audio2 %} -->
+                                <audio id="audi2" style="position: relative; top: 20px; left: 200px" controls>
                                     <source src="{{ url_for('static', filename='uploads/'+file) }}">
                                     Your browser does not support the audio
                                 </audio> 
+                                <div id="result">
+                                    <a style="position: absolute; top: -80px; right: 280px" href="/result" id="printEmotion">History</a>
+                                </div>
+                                <script>
+                                    document.getElementById('printEmotion').addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        
+                                        // Lấy danh sách cảm xúc từ trang demo.html
+                                        const emotions1 = {{ histories | tojson | safe }};  // Biến JSON từ Flask
+                                        const audio2Element = document.getElementById('audi2');
+                                        const audio2Source = audio2Element.src;
+                                        const labels = {{emotions | tojson | safe }};
+                                        const waveform={{waveform_image| tojson | safe}}
+                                        // Lưu danh sách cảm xúc và địa chỉ âm thanh vào session storage
+                                        sessionStorage.setItem('emotions', JSON.stringify(emotions1));
+                                        sessionStorage.setItem('audioPath', '{{ url_for('static', filename='uploads/' + file) }}');
+                                        sessionStorage.setItem("label", JSON.stringify(labels));
+                                        sessionStorage.setItem("waveform", '{{ url_for('static', filename='tmp/'+waveform_image) }}');
+                                        window.location.href = '/result';  // Chuyển đến trang result.html
+                                    });
+                                </script>
                                 {% endif %}
                             </div>
                         </form>
@@ -86,6 +128,132 @@
         </div>
 
     </div>
+    <script>
+        {% if emotion and audio %}
+            let currentTime = 0;
+
+            const audio = document.getElementById('audi');
+            const label = document.getElementById('label');
+        
+            const data = {{ emotion | safe }};
+            // alert(data)
+
+            const labels = data.map(item => {
+                const parts = item.split('_');
+                const times = parts[0].split('-');
+
+                const minStart = parseInt(times[0].split(':')[0]);
+                const secStart = parseInt(times[0].split(':')[1]);
+
+                const minEnd = parseInt(times[1].split(':')[0]);
+                const secEnd = parseInt(times[1].split(':')[1]);
+
+                const startTotalSec = minStart * 60 + secStart;
+                const endTotalSec = minEnd * 60 + secEnd;
+
+                return {
+                    start: startTotalSec,
+                    end: endTotalSec,
+                    label: parts[1]
+                };
+            });
+
+            console.log(labels);
+
+            function checkTime() {
+                getCurrentTime();
+
+                const currentLabel = labels.find(label => {
+                    return currentTime >= label.start && currentTime < label.end;
+                });
+
+                if (currentLabel) {
+                    label.textContent = currentLabel.label;
+                }
+            }
+
+            function getCurrentTime() {
+                currentTime = audio.currentTime;
+            }
+
+            audio.addEventListener('playing', checkTime);
+            audio.addEventListener('pause', getCurrentTime);
+            audio.addEventListener('play', getCurrentTime);
+            audio.addEventListener('seeked', getCurrentTime);
+            audio.addEventListener('timeupdate', checkTime);
+        {% endif %}
+    </script>
+    <script>
+        {% if emotions and audio2 %}
+            let currentTime = 0;
+
+            const audio = document.getElementById('audi2');
+            const label = document.getElementById('labels');
+        
+            const data = {{ emotions | safe }};
+            // alert(data)
+
+            const labels = data.map(item => {
+                const parts = item.split('_');
+                const times = parts[0].split('-');
+
+                const minStart = parseInt(times[0].split(':')[0]);
+                const secStart = parseInt(times[0].split(':')[1]);
+
+                const minEnd = parseInt(times[1].split(':')[0]);
+                const secEnd = parseInt(times[1].split(':')[1]);
+
+                const startTotalSec = minStart * 60 + secStart;
+                const endTotalSec = minEnd * 60 + secEnd;
+
+                return {
+                    start: startTotalSec,
+                    end: endTotalSec,
+                    label: parts[1]
+                };
+            });
+
+            console.log(labels);
+
+            function checkTime() {
+                getCurrentTime();
+
+                const currentLabel = labels.find(label => {
+                    return currentTime >= label.start && currentTime < label.end;
+                });
+
+                if (currentLabel) {
+                    label.textContent = currentLabel.label;
+                }
+            }
+
+            function getCurrentTime() {
+                currentTime = audio.currentTime;
+            }
+
+            audio.addEventListener('playing', checkTime);
+            audio.addEventListener('pause', getCurrentTime);
+            audio.addEventListener('play', getCurrentTime);
+            audio.addEventListener('seeked', getCurrentTime);
+            audio.addEventListener('timeupdate', checkTime);
+        {% endif %}
+    </script>
+    <!-- <script>
+        const audio = document.getElementById('audi');
+        const printEmotionButton = document.getElementById('printEmotion');
+    
+        audio.addEventListener('play', function() {
+            printEmotionButton.style.display = 'block';
+        });
+    
+        audio.addEventListener('pause', function() {
+            printEmotionButton.style.display = 'block';
+        });
+    
+        audio.addEventListener('ended', function() {
+            printEmotionButton.style.display = 'block';
+        });
+    </script> -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q6T9NGZZ1N"></script>
     <script async="" src="../static/styles/js/main.js"></script>
 

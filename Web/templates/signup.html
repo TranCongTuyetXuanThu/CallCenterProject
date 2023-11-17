@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sign-up</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% import "bootstrap/wtf.html" as wtf %}
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../static/images/logo-2.png"/>
+	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="../static/styles/css/main_login.css">
+	<link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="container">
+			<form class="form-signin" method="POST" action="/signup">
+            <h2 style="position: relative; top: -30px; right: -65px;" class="form-signin-heading">Sign Up</h2>
+				{{ form.hidden_tag() }}
+				{{ wtf.form_field(form.username) }}
+				{{ wtf.form_field(form.email) }}
+				{{ wtf.form_field(form.password) }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+          </form>
+				  </div> <!-- /container -->
+			</div>
+		</div>
+	</div>
+	
+	
+
+
+</body>
+</html>

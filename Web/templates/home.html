@@ -8,6 +8,7 @@
     <link rel="icon" type="image/ico" href="../static/images/logo-2.png">
 </head>
 <body>
+    
     <div id="root">
         <div class="flex flex-col h-full overflow-x-hidden">
             <div class="sticky top-0 z-50 flex items-center justify-center w-full bg-white md:border-b-gray-200 md:border-b-[1px] pt-3 pb-3">
@@ -18,10 +19,15 @@
                 </a>
                 <div class="hidden ml-auto md:flex [&amp;>*]:flex [&amp;>*]:items-center h-full">
                     <a class="hover:underline underline-offset-4 mr-10 font-medium text-base underline text-blue-700 active" href="/" aria-current="page">Home</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base false " href="/demo">Demo</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject/blob/main/Data/Label_distribution.png" target="_blank">Dataset</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Blog</a>
-                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="" target="_blank">Paper</a>
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base  " href="/demo">Demo</a>
+                    <!-- <a class="hover:underline underline-offset-4 mr-10 font-medium text-base  " href="/realtime">Realtime</a> -->
+                    {% if not login_required %}
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="/login" target="_blank">Login</a>
+                    <!-- <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="/signup" target="_blank">Signup</a> -->
+                    {% endif %}
+                    {% if login_required %}
+                    <a class="hover:underline underline-offset-4 mr-10 font-medium text-base" href="/logout" target="_blank">Logout</a>
+                    {% endif %}
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
                         <img class="hidden h-6 align-baseline md:inline xl:h-auto hover:opacity-50" src="../static/images/Github.svg" alt="Github" style="fill: red;"></a>
                     <a class="mr-6 min-w-[24px]" href="https://github.com/TranCongTuyetXuanThu/CallCenterProject" target="_blank">
@@ -47,6 +53,7 @@
                                     <h6 >Our project recognizes customer emotions in business interactions, using AI to improve customer satisfaction and service quality, ultimately fostering stronger customer relationships and business success.</h6>
                                 </div>
                             </div>
+              
                             <div class="flex gap-5 items-start w-full undefined">
                                 <a class="flex items-center gap-2 py-2 mt-4 no-underline group" href="/demo"><button><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path class="" opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M13 25C6.37258 25 0.999999 19.6274 0.999999 13C0.999999 6.37258 6.37258 1 13 1C19.6274 1 25 6.37258 25 13C25 19.6274 19.6274 25 13 25Z" stroke="white"></path>
@@ -54,6 +61,7 @@
                                     <span class="font-bold text-white group-hover:text-blue-200">Try the demo</span>
                                 </a>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -61,6 +69,7 @@
             </div>
         </div>
     </div>
+   
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q6T9NGZZ1N"></script>
 </body>
 

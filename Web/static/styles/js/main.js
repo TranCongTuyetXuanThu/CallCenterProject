@@ -106,5 +106,3 @@ jQuery(document).ready(function () {
     document.getElementById('selectAudioButton').addEventListener('click', function () {
         document.getElementById('audioFile').click();
     });
-
-
